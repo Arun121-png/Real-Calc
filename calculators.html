@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Financial Calculators</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.calculator {
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.calculator h3 {
+  margin-top: 0;
+}
+
+.calculator input {
+  width: 100%;
+  padding: 8px;
+  margin: 6px 0 12px;
+  box-sizing: border-box;
+}
+
+.calculator button {
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+</style>
+</head>
+<body>
+
+<!-- DSR Calculator -->
+<div class="calculator">
+  <h3>Debt Service Ratio (DSR)</h3>
+
+  <label>Net Operating Income (NOI)</label>
+  <input type="number" id="noi" placeholder="Enter NOI">
+
+  <label>Debt Service (DS)</label>
+  <input type="number" id="ds" placeholder="Enter Debt Service">
+
+  <button onclick="calculateDSR()">Calculate DSR</button>
+
+  <p><strong>Debt Service Ratio (DSR):</strong> <span id="dsrResult">—</span></p>
+</div>
+
+<!-- BER Calculator -->
+<div class="calculator">
+  <h3>Break Even Ratio (BER)</h3>
+
+  <label>Operating Expenses (OE)</label>
+  <input type="number" id="oe" placeholder="Enter Operating Expenses">
+
+  <label>Debt Service (DS)</label>
+  <input type="number" id="ds_ber" placeholder="Enter Debt Service">
+
+  <label>Gross Operating Income (GOI)</label>
+  <input type="number" id="goi" placeholder="Enter Gross Operating Income">
+
+  <button onclick="calculateBER()">Calculate BER</button>
+
+  <p><strong>Break Even Ratio (BER):</strong> <span id="berResult">—</span></p>
+</div>
+
+<script>
+function calculateDSR() {
+  const noi = parseFloat(document.getElementById('noi').value);
+  const ds = parseFloat(document.getElementById('ds').value);
+
+  if (isNaN(noi) || isNaN(ds)) {
+    document.getElementById('dsrResult').innerText = 'Enter both values';
+    return;
+  }
+  if (ds === 0) {
+    document.getElementById('dsrResult').innerText = 'Debt Service cannot be 0';
+    return;
+  }
+
+  const dsr = noi / ds;
+  document.getElementById('dsrResult').innerText = dsr.toFixed(2);
+}
+
+function calculateBER() {
+  const oe = parseFloat(document.getElementById('oe').value);
+  const ds = parseFloat(document.getElementById('ds_ber').value);
+  const goi = parseFloat(document.getElementById('goi').value);
+
+  if (isNaN(oe) || isNaN(ds) || isNaN(goi)) {
+    document.getElementById('berResult').innerText = 'Enter all values';
+    return;
+  }
+  if (goi === 0) {
+    document.getElementById('berResult').innerText = 'Gross Operating Income cannot be 0';
+    return;
+  }
+
+  const ber = (oe + ds) / goi;
+  document.getElementById('berResult').innerText = ber.toFixed(2);
+}
+</script>
+
+</body>
+</html>
